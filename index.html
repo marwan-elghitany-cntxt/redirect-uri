@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,33 +46,34 @@
         }
     </style>
 </head>
-
 <body>
     <div class="checkmark">✅</div>
     <h1>Authentication Process Done</h1>
     <p>You can now go back to the app.</p>
-</body>
-<script>
-    window.onload = async () => {
-        const params = new URLSearchParams(window.location.search);
-        const code = params.get("code");
-        const state = params.get("state");
 
-        if (code) {
-            try {
-                await fetch("https://ef11-86-98-69-175.ngrok-free.app/api/oauth/completed", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ code, state })
-                });
-                console.log("✅ Backend notified");
-            } catch (err) {
-                console.error("❌ Failed to notify backend:", err);
+    <script>
+        window.onload = async () => {
+            const params = new URLSearchParams(window.location.search);
+            const code = params.get("code");
+            const state = params.get("state");
+
+            if (code) {
+                try {
+                    await fetch("https://your-backend.com/api/oauth/completed", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ code, state })
+                    });
+                    console.log("✅ Backend notified with code and state");
+                } catch (err) {
+                    console.error("❌ Failed to notify backend:", err);
+                }
+            } else {
+                console.warn("No code found in query string.");
             }
-        }
-    };
-</script>
-
+        };
+    </script>
+</body>
 </html>
